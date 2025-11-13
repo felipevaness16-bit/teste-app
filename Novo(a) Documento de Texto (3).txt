@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aura & Essencia - Seu Guia de Beleza e Bem-Estar</title>
+    <!-- Carregamento do Tailwind CSS para um design luxuoso e responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Carregamento de Icones (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Configuração de cores e fonte personalizada para o tema de luxo -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap');
+        :root {
+            --color-primary: #4B0082; /* Deep Violet/Indigo */
+            --color-accent: #EFC050; /* Gold */
+            --color-background: #F8F8F8; /* Light Cream */
+            --color-text: #333333;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-text);
+        }
+        .luxury-header {
+            font-family: 'Playfair Display', serif;
+            color: var(--color-primary);
+        }
+        .btn-primary {
+            background-color: var(--color-primary);
+            box-shadow: 0 4px 15px rgba(75, 0, 130, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .btn-primary:hover {
+            background-color: #6a00c6;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(75, 0, 130, 0.6);
+        }
+        .plan-card {
+            border: 1px solid rgba(75, 0, 130, 0.1);
+            transition: all 0.3s ease;
+        }
+        .plan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(75, 0, 130, 0.15);
+        }
+        /* Estilos para o ícone de carregamento */
+        .spinner {
+            border-top-color: var(--color-accent);
+            border-left-color: var(--color-primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        /* Melhoria para a navegação mobile (touch target size) */
+        #nav-menu button, #mobile-drawer button {
+            padding: 0.75rem 1rem; /* Maior área de toque */
+            border-radius: 0.5rem;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 🌟 TELA DE LOGIN/CADASTRO 🌟 -->
+    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+        <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl border-t-8 border-violet-700">
+            <div class="text-center mb-8">
+                <i data-lucide="gem" class="w-12 h-12 mx-auto text-violet-700 mb-3"></i>
+                <h1 class="luxury-header text-4xl font-bold text-violet-800">Aura & Essencia</h1>
+                <p class="text-gray-500 mt-2" id="auth-subtitle">Bem-vinda à sua jornada de beleza e bem-estar.</p>
+            </div>
+            
+            <!-- CONTÊINER DOS FORMULÁRIOS -->
+            <div id="auth-container">
+                <!-- FORMULÁRIO DE LOGIN (PADRÃO) -->
+                <form id="login-form-content" onsubmit="event.preventDefault(); handleLogin();">
+                    <div class="mb-5">
+                        <label for="login-email" class="block text-sm font-medium text-gray-700">E-mail</label>
+                        <input type="email" id="login-email" value="usuario@simulado.com" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Seu e-mail" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="login-password" class="block text-sm font-medium text-gray-700">Senha</label>
+                        <input type="password" id="login-password" value="123456" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Sua senha" required>
+                    </div>
+                    
+                    <button type="submit" id="login-btn" class="btn-primary text-white py-3 px-8 rounded-lg font-bold w-full flex items-center justify-center">
+                        <i data-lucide="log-in" class="w-5 h-5 mr-2" id="login-icon"></i>
+                        Entrar
+                    </button>
+                    
+                    <div class="mt-6 text-center">
+                        <button type="button" onclick="showSignup();" class="text-violet-600 hover:text-violet-800 font-medium transition duration-150 flex items-center justify-center mx-auto">
+                            <i data-lucide="user-plus" class="w-5 h-5 mr-2"></i>Criar uma Nova Conta
+                        </button>
+                    </div>
+                </form>
+                
+                <!-- FORMULÁRIO DE CADASTRO (ESCONDIDO) -->
+                <form id="signup-form-content" onsubmit="event.preventDefault(); handleSignup();" class="hidden">
+                    <h2 class="text-2xl font-semibold mb-4 text-violet-700">Novo Cadastro</h2>
+                    <div class="mb-5">
+                        <label for="signup-email" class="block text-sm font-medium text-gray-700">E-mail</label>
+                        <input type="email" id="signup-email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Seu e-mail" required>
+                    </div>
+                    <div class="mb-6">
+                        <label for="signup-password" class="block text-sm font-medium text-gray-700">Senha (mínimo 6 caracteres)</label>
+                        <input type="password" id="signup-password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Sua senha" required minlength="6">
+                    </div>
+                    
+                    <button type="submit" id="signup-btn" class="btn-primary text-white py-3 px-8 rounded-lg font-bold w-full flex items-center justify-center">
+                        <i data-lucide="save" class="w-5 h-5 mr-2" id="signup-icon"></i>
+                        Cadastrar e Entrar
+                    </button>
+                    
+                    <div class="mt-6 text-center">
+                        <button type="button" onclick="showLogin();" class="text-violet-600 hover:text-violet-800 font-medium transition duration-150 flex items-center justify-center mx-auto">
+                            <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>Voltar ao Login
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="mt-6 text-center border-t border-gray-200 pt-4">
+                <p class="text-gray-500 mb-3">Opção Rápida:</p>
+                <button onclick="signInAnon();" class="text-sm text-violet-600 hover:text-violet-800 font-medium flex items-center justify-center mx-auto transition duration-150">
+                    <i data-lucide="eye" class="w-5 h-5 mr-2"></i>Acesso Rápido (Anônimo)
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- 🛑 FIM DA TELA DE LOGIN/CADASTRO 🛑 -->
+
+
+    <!-- Navbar Fixa e Luxuosa (Escondida por default) -->
+    <nav class="bg-white shadow-lg p-4 sticky top-0 z-10 hidden" id="app-navbar">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <h1 class="luxury-header text-2xl font-bold">Aura & Essencia</h1>
+            <div id="nav-menu" class="hidden md:flex space-x-6">
+                <!-- Botões de navegação estilizados -->
+                <button onclick="navigate('profile')" class="text-gray-700 hover:text-indigo-600 transition duration-150 flex items-center"><i data-lucide="user" class="w-5 h-5 mr-1"></i>Meu Perfil</button>
+                <button onclick="navigate('tips')" class="text-gray-700 hover:text-indigo-600 transition duration-150 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 mr-1"></i>Dicas Diárias</button>
+                <button onclick="navigate('evolution')" class="text-gray-700 hover:text-indigo-600 transition duration-150 flex items-center"><i data-lucide="trending-up" class="w-5 h-5 mr-1"></i>Evolução</button>
+                <button onclick="navigate('look')" class="text-gray-700 hover:text-indigo-600 transition duration-150 flex items-center"><i data-lucide="gem" class="w-5 h-5 mr-1"></i>Look do Dia (Aura)</button>
+                <button onclick="navigate('plans')" class="text-gray-700 hover:text-indigo-600 transition duration-150 flex items-center"><i data-lucide="credit-card" class="w-5 h-5 mr-1"></i>Planos</button>
+            </div>
+            <!-- Botão de Menu para Mobile -->
+            <button id="menu-toggle" class="md:hidden text-gray-700">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Navigation Drawer (Escondida por default) -->
+    <div id="mobile-drawer" class="fixed inset-0 bg-white z-20 transform -translate-x-full transition-transform duration-300 md:hidden">
+        <div class="flex justify-end p-4">
+            <button id="close-drawer" class="text-gray-700">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+        </div>
+        <div class="flex flex-col space-y-4 p-6">
+            <button onclick="navigate('profile'); toggleMobileDrawer(false);" class="text-lg text-gray-700 hover:text-indigo-600 flex items-center"><i data-lucide="user" class="w-5 h-5 mr-2"></i>Meu Perfil</button>
+            <button onclick="navigate('tips'); toggleMobileDrawer(false);" class="text-lg text-gray-700 hover:text-indigo-600 flex items-center"><i data-lucide="sparkles" class="w-5 h-5 mr-2"></i>Dicas Diárias</button>
+            <button onclick="navigate('evolution'); toggleMobileDrawer(false);" class="text-lg text-gray-700 hover:text-indigo-600 flex items-center"><i data-lucide="trending-up" class="w-5 h-5 mr-2"></i>Evolução</button>
+            <button onclick="navigate('look'); toggleMobileDrawer(false);" class="text-lg text-gray-700 hover:text-indigo-600 flex items-center"><i data-lucide="gem" class="w-5 h-5 mr-2"></i>Look do Dia (Aura)</button>
+            <button onclick="navigate('plans'); toggleMobileDrawer(false);" class="text-lg text-gray-700 hover:text-indigo-600 flex items-center"><i data-lucide="credit-card" class="w-5 h-5 mr-2"></i>Planos</button>
+        </div>
+    </div>
+
+
+    <!-- Conteúdo Principal - Centralizado e com Padding Generoso (Escondido por default) -->
+    <main class="flex-grow max-w-7xl mx-auto p-4 md:p-8 w-full hidden" id="app-main">
+        <div id="content-container" class="bg-white p-6 md:p-10 rounded-xl shadow-2xl border-t-4 border-violet-700/50">
+            <!-- Conteúdo será injetado aqui pelo JavaScript -->
+        </div>
+    </main>
+
+    <!-- Modal de Mensagem (Simula alert/confirm) -->
+    <div id="message-modal" class="fixed inset-0 bg-gray-900 bg-opacity-75 z-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-lg shadow-2xl max-w-sm w-full">
+            <h3 id="modal-title" class="luxury-header text-xl font-bold mb-3 text-violet-800">Mensagem</h3>
+            <p id="modal-body" class="mb-4 text-gray-600"></p>
+            <button onclick="closeModal()" class="w-full btn-primary text-white py-2 rounded-lg font-semibold">Entendido</button>
+        </div>
+    </div>
+
+    <!-- Scripts de Firebase e Lógica do App -->
+    <script type="module">
+        // Importações do Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        // IMPORTANTE: Adicionado createUserWithEmailAndPassword
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, onSnapshot, collection, query, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global Variables MUST BE USED
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-aura-essencia-app-id';
+        // CORREÇÃO: Usando objeto vazio para garantir que o ambiente tente injetar as chaves válidas.
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {}; 
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth, userId = null;
+        let isAuthReady = false;
+
+        // Configuração do Log do Firestore
+        setLogLevel('Debug');
+
+        // --- Funções de Login/Cadastro de Tela ---
+        const showLogin = () => {
+            document.getElementById('signup-form-content').classList.add('hidden');
+            document.getElementById('login-form-content').classList.remove('hidden');
+            document.getElementById('auth-subtitle').textContent = "Bem-vinda à sua jornada de beleza e bem-estar.";
+            lucide.createIcons();
+        }
+
+        const showSignup = () => {
+            document.getElementById('login-form-content').classList.add('hidden');
+            document.getElementById('signup-form-content').classList.remove('hidden');
+            document.getElementById('auth-subtitle').textContent = "Crie sua conta para salvar seu progresso.";
+            lucide.createIcons();
+        }
+
+
+        // Inicialização do Firebase e Autenticação
+        const initFirebase = async () => {
+            try {
+                // 1. Initialize App
+                // A inicialização sempre deve ocorrer
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+                
+                // 2. Auth Listener
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        isAuthReady = true;
+                        // For demonstration, display the userId (important for multi-user rules)
+                        console.log("Usuário autenticado:", userId); 
+                        // Esconde o login, mostra o app e carrega o perfil
+                        showApp();
+                        await loadUserProfile(); 
+                        navigate('profile', false);
+                    } else {
+                        // Se não houver usuário autenticado, exibe a tela de login
+                        document.getElementById('login-screen').classList.remove('hidden');
+                        document.getElementById('app-navbar').classList.add('hidden');
+                        document.getElementById('app-main').classList.add('hidden');
+                        isAuthReady = true; // Permite a interação com a tela de login
+                        
+                        // NOVO FLUXO DE FALLBACK PARA GARANTIR O LOGIN ANÔNIMO:
+                        if (initialAuthToken) {
+                            try {
+                                // Tenta login com token (prioridade)
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } catch (error) {
+                                console.error("Erro durante o login com token, tentando anônimo:", error);
+                                // Se o token falhar, tenta o anônimo como último recurso
+                                await signInAnonymously(auth); 
+                            }
+                        } else {
+                            // Se não houver token, tenta imediatamente o login anônimo
+                            await signInAnonymously(auth);
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error("Erro na inicialização do Firebase:", error);
+                showModal("Erro Fatal", "Não foi possível inicializar o Firebase. Verifique a configuração.");
+                isAuthReady = true;
+            }
+        };
+
+        const showApp = () => {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('app-navbar').classList.remove('hidden');
+            document.getElementById('app-main').classList.remove('hidden');
+            lucide.createIcons(); // Garante que os ícones do app sejam renderizados
+        }
+
+        // --- Funções de Login/Cadastro (Firebase) ---
+
+        // FUNÇÃO DE CADASTRO (NOVA)
+        const handleSignup = async () => {
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const signupBtn = document.getElementById('signup-btn');
+            const signupIcon = document.getElementById('signup-icon');
+
+            if (password.length < 6) {
+                showModal("Erro de Cadastro", "A senha deve ter no mínimo 6 caracteres.");
+                return;
+            }
+
+            // Inicia o spinner
+            signupIcon.classList.remove('data-lucide');
+            signupIcon.classList.add('spinner', 'border-4', 'border-gray-200', 'rounded-full');
+            signupBtn.disabled = true;
+
+            try {
+                // Tenta criar a nova conta no Firebase
+                await createUserWithEmailAndPassword(auth, email, password);
+                
+                // Se for bem-sucedido, o onAuthStateChanged fará o login e a navegação.
+                showModal("Sucesso!", "Conta criada com sucesso! Você está logado(a).");
+
+            } catch (error) {
+                // Resetar o botão e ícone
+                signupIcon.classList.add('data-lucide');
+                signupIcon.classList.remove('spinner', 'border-4', 'border-gray-200', 'rounded-full');
+                signupIcon.setAttribute('data-lucide', 'save');
+                lucide.createIcons(); 
+                signupBtn.disabled = false;
+                
+                let errorMessage = "Ocorreu um erro desconhecido durante o cadastro.";
+                
+                switch (error.code) {
+                    case 'auth/email-already-in-use':
+                        errorMessage = "Este e-mail já está em uso. Tente fazer login.";
+                        break;
+                    case 'auth/invalid-email':
+                        errorMessage = "O endereço de e-mail não é válido.";
+                        break;
+                    case 'auth/weak-password':
+                        errorMessage = "A senha é muito fraca. Escolha uma senha mais forte.";
+                        break;
+                    case 'auth/api-key-not-valid': // Erro mais específico da configuração (mantido por segurança)
+                        errorMessage = "Erro de Configuração. A chave de API do Firebase não é válida. (Tente novamente ou use o Acesso Rápido.)";
+                        break;
+                    default:
+                        errorMessage = `Erro de Cadastro: ${error.message}`;
+                }
+                showModal("Erro de Cadastro", errorMessage);
+            }
+        };
+
+        const handleLogin = async () => {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+            const loginBtn = document.getElementById('login-btn');
+            const loginIcon = document.getElementById('login-icon');
+
+            // Muda o ícone para spinner
+            loginIcon.classList.remove('data-lucide');
+            loginIcon.classList.add('spinner', 'border-4', 'border-gray-200', 'rounded-full');
+            loginBtn.disabled = true;
+
+            try {
+                // Tenta logar o usuário com e-mail e senha
+                await signInWithEmailAndPassword(auth, email, password);
+                // O listener onAuthStateChanged cuidará da navegação
+            } catch (error) {
+                // Resetar o botão imediatamente em caso de falha de autenticação
+                loginIcon.classList.add('data-lucide');
+                loginIcon.classList.remove('spinner', 'border-4', 'border-gray-200', 'rounded-full');
+                loginIcon.setAttribute('data-lucide', 'log-in');
+                lucide.createIcons(); // Para redesenhar o ícone de login
+                loginBtn.disabled = false;
+                
+                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
+                    showModal("Login Falhou", "E-mail ou senha inválidos. Verifique suas credenciais.");
+                } else {
+                     showModal("Erro de Login", `Ocorreu um erro: ${error.message}`);
+                }
+            } 
+        };
+
+        const signInAnon = async () => {
+             try {
+                await signInAnonymously(auth);
+                // O listener onAuthStateChanged cuidará da navegação
+            } catch (error) {
+                console.error("Erro no login anônimo:", error);
+                // Se houver erro aqui, provavelmente é a chave de API novamente.
+                showModal("Erro de Conexão", `Não foi possível realizar o acesso rápido. Tente novamente mais tarde. Erro: ${error.message}`);
+            }
+        };
+
+        
+        // --- Variáveis de Estado do App ---
+        let currentPage = 'profile';
+        let userProfile = {
+            name: '',
+            etnia: 'pardo', // Default pardo
+            pele: 'Normal', // Default Normal
+            cabelo: 'Ondulado', // Default Ondulado
+            altura: '', // Altura em cm
+            medidas: { busto: '', cintura: '', quadril: '' },
+            currentPlan: 'Gratuito'
+        };
+
+        const ETHNICITIES = [
+            { label: 'Branco', value: 'branco' },
+            { label: 'Preto', value: 'preto' },
+            { label: 'Pardo', value: 'pardo' },
+            { label: 'Indígena', value: 'indigena' },
+            { label: 'Amarelo', value: 'amarelo' }
+        ];
+
+        const SKIN_TYPES = ['Normal', 'Seca', 'Oleosa', 'Mista', 'Sensível'];
+        const HAIR_TYPES = ['Liso', 'Ondulado', 'Cacheado', 'Crespo'];
+        let dailyEvolutionData = []; // Data for tracking
+
+        // --- Funções de UI ---
+
+        const showModal = (title, body) => {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-body').textContent = body;
+            document.getElementById('message-modal').classList.remove('hidden');
+        };
+
+        const closeModal = () => {
+            document.getElementById('message-modal').classList.add('hidden');
+        };
+
+        const toggleMobileDrawer = (open) => {
+            const drawer = document.getElementById('mobile-drawer');
+            if (open) {
+                drawer.classList.remove('-translate-x-full');
+            } else {
+                drawer.classList.add('-translate-x-full');
+            }
+        };
+
+        document.getElementById('menu-toggle').addEventListener('click', () => toggleMobileDrawer(true));
+        document.getElementById('close-drawer').addEventListener('click', () => toggleMobileDrawer(false));
+
+
+        // --- Funções de Firestore ---
+
+        const getProfileDocRef = () => {
+            if (!userId) throw new Error("Usuário não autenticado.");
+            // Private path: /artifacts/{appId}/users/{userId}/profile/user_data
+            return doc(db, `artifacts/${appId}/users/${userId}/profile`, 'user_data');
+        };
+
+        const getEvolutionCollectionRef = () => {
+            if (!userId) throw new Error("Usuário não autenticado.");
+            // Private path: /artifacts/{appId}/users/{userId}/evolution
+            return collection(db, `artifacts/${appId}/users/${userId}/evolution`);
+        };
+
+        const loadUserProfile = () => {
+             // Attach real-time listener for the profile document
+             if (!isAuthReady || !userId) return;
+
+             try {
+                const profileRef = getProfileDocRef();
+                onSnapshot(profileRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        userProfile = {
+                            ...userProfile,
+                            ...data,
+                            medidas: data.medidas || { busto: '', cintura: '', quadril: '' }
+                        };
+                        renderPage(currentPage); // Re-render the current page with new data
+                        console.log("Perfil carregado com sucesso.");
+                    } else {
+                        console.log("Documento de perfil não encontrado. Usando defaults.");
+                    }
+                }, (error) => {
+                    console.error("Erro ao carregar o perfil em tempo real:", error);
+                });
+             } catch (e) {
+                console.error("Erro ao configurar listener do perfil:", e);
+             }
+        };
+
+        const saveProfile = async () => {
+            if (!isAuthReady || !userId) {
+                showModal("Erro de Autenticação", "Por favor, aguarde o login ou tente novamente.");
+                return;
+            }
+
+            // Get data from form inputs
+            const profileData = {
+                name: document.getElementById('profile-name').value,
+                etnia: document.getElementById('profile-etnia').value,
+                pele: document.getElementById('profile-pele').value,
+                cabelo: document.getElementById('profile-cabelo').value,
+                altura: parseInt(document.getElementById('profile-altura').value) || null,
+                medidas: {
+                    busto: parseInt(document.getElementById('profile-busto').value) || null,
+                    cintura: parseInt(document.getElementById('profile-cintura').value) || null,
+                    quadril: parseInt(document.getElementById('profile-quadril').value) || null,
+                },
+                currentPlan: userProfile.currentPlan
+            };
+
+            // Update local state and save to Firestore
+            userProfile = { ...userProfile, ...profileData };
+
+            try {
+                const profileRef = getProfileDocRef();
+                await setDoc(profileRef, userProfile, { merge: true });
+                showModal("Sucesso!", "Seu perfil foi atualizado com sucesso!");
+                renderPage('profile');
+            } catch (e) {
+                console.error("Erro ao salvar o perfil:", e);
+                showModal("Erro ao Salvar", "Ocorreu um erro ao salvar seus dados. Tente novamente.");
+            }
+        };
+
+        const loadDailyEvolution = () => {
+            if (!isAuthReady || !userId) return;
+
+            try {
+                const evolutionRef = getEvolutionCollectionRef();
+                const q = query(evolutionRef); // No orderBy to avoid index issues.
+
+                onSnapshot(q, (snapshot) => {
+                    const data = [];
+                    snapshot.forEach(doc => {
+                        data.push({ id: doc.id, ...doc.data() });
+                    });
+                    // Sort data by date in memory (most recent first)
+                    dailyEvolutionData = data.sort((a, b) => b.timestamp.toMillis() - a.timestamp.toMillis());
+                    renderPage(currentPage);
+                }, (error) => {
+                    console.error("Erro ao carregar evolução diária em tempo real:", error);
+                });
+            } catch (e) {
+                console.error("Erro ao configurar listener de evolução:", e);
+            }
+        };
+
+        const addDailyEvolution = async () => {
+            if (!isAuthReady || !userId) {
+                showModal("Erro", "Usuário não autenticado. Por favor, aguarde o carregamento.");
+                return;
+            }
+
+            const skinQuality = document.getElementById('skin-quality').value;
+            const hairQuality = document.getElementById('hair-quality').value;
+            const notes = document.getElementById('daily-notes').value;
+
+            const entry = {
+                skinQuality: skinQuality,
+                hairQuality: hairQuality,
+                notes: notes,
+                timestamp: serverTimestamp()
+            };
+
+            try {
+                await addDoc(getEvolutionCollectionRef(), entry);
+                showModal("Registro Adicionado", "Seu progresso diário foi salvo!");
+                // Clear form
+                document.getElementById('skin-quality').value = '3';
+                document.getElementById('hair-quality').value = '3';
+                document.getElementById('daily-notes').value = '';
+            } catch (e) {
+                console.error("Erro ao adicionar registro diário:", e);
+                showModal("Erro", "Falha ao salvar o registro diário.");
+            }
+        };
+
+        // --- Funções de Navegação e Renderização ---
+
+        const navigate = (page, runLoaders = true) => {
+            currentPage = page;
+            renderPage(page, runLoaders);
+            // Re-render Lucide icons on page change
+            lucide.createIcons();
+        };
+
+        const renderPage = (page, runLoaders = true) => {
+            const container = document.getElementById('content-container');
+            container.innerHTML = `<h2 class="luxury-header text-3xl font-bold mb-6 text-violet-800">Carregando...</h2>`;
+
+            if (!isAuthReady) {
+                container.innerHTML = `<div class="text-center p-10">
+                    <div class="spinner border-4 border-gray-200 rounded-full w-10 h-10 inline-block"></div>
+                    <p class="mt-4 text-gray-500">Aguardando autenticação e carregamento de dados...</p>
+                </div>`;
+                return;
+            }
+
+            switch (page) {
+                case 'profile':
+                    container.innerHTML = renderProfilePage();
+                    // Attach event listener for saving
+                    document.getElementById('save-profile-btn').addEventListener('click', saveProfile);
+                    break;
+                case 'tips':
+                    container.innerHTML = renderTipsPage();
+                    break;
+                case 'evolution':
+                    container.innerHTML = renderEvolutionPage();
+                    if (runLoaders) loadDailyEvolution();
+                    // Attach event listener for adding daily entry
+                    document.getElementById('add-daily-entry-btn')?.addEventListener('click', addDailyEvolution);
+                    
+                    // NEW: Attach listeners for range slider updates
+                    const skinRange = document.getElementById('skin-quality');
+                    const skinValue = document.getElementById('skin-value');
+                    if (skinRange && skinValue) {
+                        skinRange.oninput = (e) => skinValue.textContent = e.target.value;
+                    }
+                    
+                    const hairRange = document.getElementById('hair-quality');
+                    const hairValue = document.getElementById('hair-value');
+                    if (hairRange && hairValue) {
+                        hairRange.oninput = (e) => hairValue.textContent = e.target.value;
+                    }
+
+                    break;
+                case 'look':
+                    container.innerHTML = renderLookDoDiaPage();
+                    document.getElementById('generate-look-btn')?.addEventListener('click', simulateAILook);
+                    break;
+                case 'plans':
+                    container.innerHTML = renderPlansPage();
+                    break;
+                default:
+                    container.innerHTML = `<h2 class="luxury-header text-3xl font-bold mb-6 text-violet-800">Página Não Encontrada</h2>`;
+            }
+
+            // Ensure Lucide icons are rendered after HTML injection
+            lucide.createIcons();
+        };
+
+        // --- Renderização de Páginas ---
+
+        const renderProfilePage = () => {
+            const u = userProfile;
+            return `
+                <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800">Meu Perfil</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Detalhes Pessoais -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-inner">
+                        <h3 class="font-semibold text-lg mb-4 text-violet-700">Informações Pessoais</h3>
+                        <div class="mb-4">
+                            <label for="profile-name" class="block text-sm font-medium text-gray-700">Nome Completo</label>
+                            <input type="text" id="profile-name" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" value="${u.name}">
+                        </div>
+                        <div class="mb-4">
+                            <label for="profile-etnia" class="block text-sm font-medium text-gray-700">Etnia</label>
+                            <select id="profile-etnia" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2">
+                                ${ETHNICITIES.map(e => `<option value="${e.value}" ${u.etnia === e.value ? 'selected' : ''}>${e.label}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="profile-altura" class="block text-sm font-medium text-gray-700">Altura (cm)</label>
+                            <input type="number" id="profile-altura" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" placeholder="Ex: 165" value="${u.altura || ''}">
+                        </div>
+                    </div>
+
+                    <!-- Tipo de Beleza -->
+                    <div class="bg-gray-50 p-6 rounded-xl shadow-inner">
+                        <h3 class="font-semibold text-lg mb-4 text-violet-700">Tipos de Beleza</h3>
+                        <div class="mb-4">
+                            <label for="profile-pele" class="block text-sm font-medium text-gray-700">Tipo de Pele</label>
+                            <select id="profile-pele" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2">
+                                ${SKIN_TYPES.map(t => `<option value="${t}" ${u.pele === t ? 'selected' : ''}>${t}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="mb-4">
+                            <label for="profile-cabelo" class="block text-sm font-medium text-gray-700">Tipo de Cabelo</label>
+                            <select id="profile-cabelo" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2">
+                                ${HAIR_TYPES.map(t => `<option value="${t}" ${u.cabelo === t ? 'selected' : ''}>${t}</option>`).join('')}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Medidas (Para o Look do Dia) -->
+                    <div class="md:col-span-2 bg-gray-50 p-6 rounded-xl shadow-inner">
+                        <h3 class="font-semibold text-lg mb-4 text-violet-700">Medidas do Corpo (cm)</h3>
+                        <div class="grid grid-cols-3 gap-4">
+                            <div>
+                                <label for="profile-busto" class="block text-sm font-medium text-gray-700">Busto</label>
+                                <input type="number" id="profile-busto" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" placeholder="Ex: 90" value="${u.medidas.busto || ''}">
+                            </div>
+                            <div>
+                                <label for="profile-cintura" class="block text-sm font-medium text-gray-700">Cintura</label>
+                                <input type="number" id="profile-cintura" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" placeholder="Ex: 65" value="${u.medidas.cintura || ''}">
+                            </div>
+                            <div>
+                                <label for="profile-quadril" class="block text-sm font-medium text-gray-700">Quadril</label>
+                                <input type="number" id="profile-quadril" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" placeholder="Ex: 95" value="${u.medidas.quadril || ''}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8 text-center">
+                    <p class="text-sm text-gray-500 mb-4">Seu ID de Usuário: <span class="font-mono text-xs">${userId || 'Carregando...'}</span></p>
+                    <button id="save-profile-btn" class="btn-primary text-white py-3 px-8 rounded-lg font-bold flex items-center justify-center mx-auto">
+                        <i data-lucide="save" class="w-5 h-5 mr-2"></i>Salvar Perfil
+                    </button>
+                    <p class="mt-4 text-sm text-gray-600">Seu Plano Atual: <span class="font-bold text-violet-700">${u.currentPlan}</span></p>
+                </div>
+            `;
+        };
+
+        const renderTipsPage = () => {
+            const u = userProfile;
+            const etnia = ETHNICITIES.find(e => e.value === u.etnia)?.label || 'Não Informada';
+            const profileReady = u.name && u.altura && u.medidas.busto;
+
+            if (!profileReady) {
+                return `
+                    <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800">Dicas Diárias Personalizadas</h2>
+                    <div class="p-8 bg-amber-50 border-l-4 border-amber-500 rounded-lg text-amber-900">
+                        <p class="font-semibold flex items-center mb-2"><i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>Atenção: Perfil Incompleto</p>
+                        <p>Para gerar dicas de alta qualidade, complete seu perfil com Nome, Altura, Medidas, Tipo de Pele e Tipo de Cabelo na aba "Meu Perfil".</p>
+                    </div>
+                    <div class="mt-6 text-center">
+                        <button onclick="navigate('profile')" class="text-violet-600 hover:text-violet-800 font-medium flex items-center justify-center mx-auto"><i data-lucide="arrow-right" class="w-4 h-4 mr-1"></i>Ir para o Perfil</button>
+                    </div>
+                `;
+            }
+
+            return `
+                <h2 class="luxury-header text-3xl font-bold mb-6 text-violet-800">Dicas Diárias Personalizadas</h2>
+                <div class="mb-6 p-4 bg-violet-50 rounded-lg shadow-sm">
+                    <p class="text-sm text-violet-700 font-medium">Perfil: <span class="font-bold">${u.name}</span> | Etnia: ${etnia} | Pele: ${u.pele} | Cabelo: ${u.cabelo}</p>
+                </div>
+
+                <!-- Simulação de Dicas Geradas por IA (Gemini API) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Dicas de Alimentação -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border border-green-200">
+                        <h3 class="font-bold text-xl mb-3 text-green-700 flex items-center"><i data-lucide="leaf" class="w-5 h-5 mr-2"></i>Alimentação</h3>
+                        <p class="text-gray-600 mb-2">Para sua <span class="font-semibold">${u.pele}</span> e tipo de cabelo <span class="font-semibold">${u.cabelo}</span>:</p>
+                        <ul class="list-disc list-inside space-y-2 text-sm text-gray-700 pl-2">
+                            <li><span class="font-semibold">Foco na hidratação:</span> Beba pelo menos 2 litros de água para auxiliar na elasticidade da pele.</li>
+                            <li><span class="font-semibold">Gorduras boas:</span> Inclua abacate e nozes (ricos em ômega-3) para nutrir a pele ${u.pele}.</li>
+                            <li><span class="font-semibold">Proteínas magras:</span> Essenciais para a força e crescimento de seus fios ${u.cabelo}.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Dicas de Produtos/Cuidados -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border border-pink-200">
+                        <h3 class="font-bold text-xl mb-3 text-pink-700 flex items-center"><i data-lucide="droplets" class="w-5 h-5 mr-2"></i>Produtos e Cuidados</h3>
+                        <p class="text-gray-600 mb-2">Rotina ideal para a Etnia <span class="font-semibold">${etnia}</span>:</p>
+                        <ul class="list-disc list-inside space-y-2 text-sm text-gray-700 pl-2">
+                            <li><span class="font-semibold">Pele:</span> Use um limpador suave e invista em séruns com Niacinamida para equilibrar sua pele ${u.pele}.</li>
+                            <li><span class="font-semibold">Cabelo:</span> Produtos com óleo de coco ou manteiga de karité são ideais para realçar a definição dos seus fios ${u.cabelo}.</li>
+                            <li><span class="font-semibold">Proteção:</span> Protetor solar facial de amplo espectro (FPS 30+) diariamente.</li>
+                        </ul>
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderEvolutionPage = () => {
+            const today = new Date().toLocaleDateString('pt-BR');
+            const sortedData = dailyEvolutionData;
+
+            return `
+                <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800">Seu Controle de Evolução</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Formulário de Registro Diário -->
+                    <div class="lg:col-span-1 p-6 bg-white rounded-xl shadow-lg border-l-4 border-violet-700">
+                        <h3 class="font-bold text-xl mb-4 text-violet-700">Registro Diário (${today})</h3>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Qualidade da Pele (1 a 5)</label>
+                            <input type="range" id="skin-quality" min="1" max="5" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg">
+                            <p class="text-xs text-right text-gray-500" id="skin-value">3</p>
+                        </div>
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Qualidade do Cabelo (1 a 5)</label>
+                            <input type="range" id="hair-quality" min="1" max="5" value="3" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer range-lg">
+                            <p class="text-xs text-right text-gray-500" id="hair-value">3</p>
+                        </div>
+                        <div class="mb-6">
+                            <label for="daily-notes" class="block text-sm font-medium text-gray-700">Notas Adicionais (Opcional)</label>
+                            <textarea id="daily-notes" rows="3" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2"></textarea>
+                        </div>
+                        <button id="add-daily-entry-btn" class="btn-primary text-white py-2 px-4 rounded-lg font-semibold w-full">Registrar Dia</button>
+                    </div>
+
+                    <!-- Histórico de Evolução -->
+                    <div class="lg:col-span-2 p-6 bg-white rounded-xl shadow-lg">
+                        <h3 class="font-bold text-xl mb-4 text-violet-700">Histórico de Registros</h3>
+                        <div class="space-y-4 max-h-96 overflow-y-auto pr-2">
+                            ${sortedData.length > 0
+                                ? sortedData.map(entry => `
+                                    <div class="p-3 border rounded-lg bg-gray-50 flex justify-between items-start">
+                                        <div>
+                                            <p class="font-semibold text-sm text-violet-800">${new Date(entry.timestamp.toDate()).toLocaleDateString('pt-BR')}</p>
+                                            <p class="text-xs text-gray-600">Pele: ${entry.skinQuality}/5 | Cabelo: ${entry.hairQuality}/5</p>
+                                            ${entry.notes ? `<p class="text-xs italic mt-1 text-gray-500">"${entry.notes}"</p>` : ''}
+                                        </div>
+                                    </div>
+                                `).join('')
+                                : `<p class="text-center text-gray-500 italic">Nenhum registro encontrado. Comece a rastrear sua evolução!</p>`
+                            }
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderLookDoDiaPage = () => {
+            const isPremium = userProfile.currentPlan === 'Plano Aura';
+            const u = userProfile;
+            const profileReady = u.name && u.altura && u.medidas.busto;
+
+            if (!profileReady) {
+                return `
+                    <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800">Look do Dia (IA Premium)</h2>
+                    <div class="p-8 bg-amber-50 border-l-4 border-amber-500 rounded-lg text-amber-900">
+                        <p class="font-semibold flex items-center mb-2"><i data-lucide="alert-triangle" class="w-5 h-5 mr-2"></i>Atenção: Perfil Incompleto</p>
+                        <p>Para o serviço de IA de look, por favor, complete todos os campos de Nome, Altura e Medidas na aba "Meu Perfil".</p>
+                    </div>
+                `;
+            }
+
+            if (!isPremium) {
+                return `
+                    <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800">Look do Dia (IA Premium)</h2>
+                    <div class="p-8 bg-amber-100 border-l-4 border-amber-500 rounded-lg shadow-md text-amber-900 text-center">
+                        <i data-lucide="gem" class="w-10 h-10 text-amber-500 mb-3"></i>
+                        <p class="font-bold text-xl mb-2">Funcionalidade Exclusiva do Plano Aura</p>
+                        <p class="mb-4">Desbloqueie seu assistente de estilo pessoal! Obtenha dicas de look e penteado baseadas em sua altura, medidas e tipo de cabelo.</p>
+                        <button onclick="navigate('plans')" class="bg-amber-500 text-white py-2 px-6 rounded-lg font-semibold hover:bg-amber-600 transition duration-150">Ver Planos</button>
+                    </div>
+                `;
+            }
+
+            return `
+                <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800">Look do Dia (IA Premium)</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Formulário de Input -->
+                    <div class="p-6 bg-white rounded-xl shadow-lg border-l-4 border-violet-700">
+                        <h3 class="font-bold text-xl mb-4 text-violet-700">Seu Ponto de Partida</h3>
+                        <div class="mb-4">
+                            <label for="look-prompt" class="block text-sm font-medium text-gray-700">Descreva a peça de roupa principal:</label>
+                            <input type="text" id="look-prompt" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" placeholder="Ex: Vestido midi floral verde, Calça jeans reta escura">
+                        </div>
+                        <div class="mb-6">
+                            <label for="look-image-url" class="block text-sm font-medium text-gray-700">URL da Imagem da Peça (Simulação)</label>
+                            <input type="text" id="look-image-url" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-2" placeholder="URL da sua foto (Ex: https://.../vestido.jpg)">
+                            <p class="text-xs text-gray-500 mt-1">Em uma versão real, você enviaria uma foto.</p>
+                        </div>
+                        <button id="generate-look-btn" class="btn-primary text-white py-2 px-4 rounded-lg font-semibold w-full flex items-center justify-center">
+                            <i data-lucide="loader" class="w-5 h-5 mr-2 hidden animate-spin" id="look-spinner"></i>
+                            Gerar Dicas de Look
+                        </button>
+                    </div>
+                    <!-- Resultado da IA -->
+                    <div id="ai-look-result" class="p-6 bg-gray-50 rounded-xl shadow-inner min-h-[250px] border-r-4 border-violet-700/50">
+                        <h3 class="font-bold text-xl mb-4 text-violet-700">Resultado da Análise IA</h3>
+                        <p class="text-gray-500 italic">Aguardando a descrição da sua peça...</p>
+                    </div>
+                </div>
+            `;
+        };
+
+        const renderPlansPage = () => {
+            const p = userProfile.currentPlan;
+            const isAura = p === 'Plano Aura';
+            const isGlamour = p === 'Plano Glamour';
+
+            return `
+                <h2 class="luxury-header text-3xl font-bold mb-8 text-violet-800 text-center">Escolha o Seu Nível de Essência</h2>
+                <p class="text-center text-gray-600 mb-10">Maximize seu potencial com planos criados para a sua beleza única.</p>
+
+                <!-- Grid de Planos - Responsivo e Alinhado Verticalmente -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch p-2"> 
+                    <!-- Coloquei md:grid-cols-3 e aumentei o p-2 para melhor alinhamento no celular -->
+
+                    <!-- Plano Gratuito (Sempre incluído) -->
+                    <div class="plan-card p-6 rounded-xl bg-white shadow-xl flex flex-col ${p === 'Gratuito' ? 'border-4 border-violet-600 shadow-violet-300' : ''}">
+                        <h3 class="luxury-header text-2xl font-bold mb-2 text-gray-700">Essência Livre</h3>
+                        <p class="text-sm text-gray-500 mb-4">O essencial para começar a jornada.</p>
+
+                        <div class="text-3xl font-bold mb-6 text-gray-700 flex items-baseline">
+                            R$0,00 <span class="text-sm font-normal ml-1">/ mês</span>
+                        </div>
+
+                        <ul class="space-y-3 text-sm flex-grow">
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Meu Perfil: Dados básicos</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Dicas Diárias Básicas (Pele e Cabelo)</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="x-circle" class="w-4 h-4 mr-2 text-red-500"></i> Look do Dia IA Premium</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="x-circle" class="w-4 h-4 mr-2 text-red-500"></i> Rastreamento Diário de Evolução</li>
+                        </ul>
+
+                        <div class="mt-8">
+                            <button class="w-full bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold cursor-default">
+                                ${p === 'Gratuito' ? 'Plano Atual' : 'Selecionado'}
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Plano Glamour -->
+                    <div class="plan-card p-6 rounded-xl bg-white shadow-xl flex flex-col ${isGlamour ? 'border-4 border-violet-600 shadow-violet-300' : ''}">
+                        <h3 class="luxury-header text-2xl font-bold mb-2 text-pink-600">Plano Glamour</h3>
+                        <p class="text-sm text-gray-500 mb-4">Acompanhamento completo e evolução.</p>
+
+                        <div class="text-3xl font-bold mb-6 text-pink-600 flex items-baseline">
+                            R$14,70 <span class="text-sm font-normal ml-1">/ mês</span>
+                        </div>
+
+                        <ul class="space-y-3 text-sm flex-grow">
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Meu Perfil: Todos os Dados</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Dicas Diárias (Alimentação e Produtos)</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Rastreamento Diário de Evolução</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="x-circle" class="w-4 h-4 mr-2 text-red-500"></i> Look do Dia IA Premium</li>
+                        </ul>
+
+                        <div class="mt-8">
+                            <a href="[https://www.glamourcosmeticos.com.br/formas-de-pagamento/]" target="_blank" onclick="simulatePayment('Plano Glamour', 'R$14,70')"
+                                class="w-full btn-primary text-white py-3 rounded-lg font-bold text-center block">
+                                ${isGlamour ? 'Plano Atual' : 'Assinar R$14,70/mês'}
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Plano Aura (Top) -->
+                    <div class="plan-card p-6 rounded-xl bg-white shadow-2xl flex flex-col relative ${isAura ? 'border-4 border-violet-600 shadow-violet-500' : ''}">
+                        <div class="absolute -top-3 right-3 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md">MAIS POPULAR</div>
+                        <h3 class="luxury-header text-2xl font-bold mb-2 text-violet-800">Plano Aura</h3>
+                        <p class="text-sm text-gray-500 mb-4">Experiência completa com IA de Estilo.</p>
+
+                        <div class="text-3xl font-bold mb-6 text-violet-800 flex items-baseline">
+                            R$27,90 <span class="text-sm font-normal ml-1">/ mês</span>
+                        </div>
+
+                        <ul class="space-y-3 text-sm flex-grow">
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Meu Perfil: Todos os Dados</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Dicas Diárias (Alimentação e Produtos)</li>
+                            <li class="flex items-center text-gray-700"><i data-lucide="check-circle" class="w-4 h-4 mr-2 text-green-500"></i> Rastreamento Diário de Evolução</li>
+                            <li class="flex items-center text-gray-700 font-bold text-violet-700"><i data-lucide="zap" class="w-4 h-4 mr-2 text-violet-500"></i> Look do Dia IA Premium</li>
+                        </ul>
+
+                        <div class="mt-8">
+                            <a href="[https://somosaurapay.com/canales-de-pago/]" target="_blank" onclick="simulatePayment('Plano Aura', 'R$27,90')"
+                                class="w-full btn-primary text-white py-3 rounded-lg font-bold text-center block">
+                                ${isAura ? 'Plano Atual' : 'Assinar R$27,90/mês'}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+        };
+
+        const simulatePayment = (planName, price) => {
+            // Em um app real, este link levaria para Stripe, PayPal, Mercado Pago, etc.
+            // Aqui, simulamos a atualização do plano após um pagamento bem-sucedido
+            showModal("Pagamento Simulado", `Você seria redirecionado para pagar ${price} pelo ${planName}. Após o pagamento, seu plano será ativado.`);
+            // Simulação de ativação:
+            if (!userProfile.currentPlan || userProfile.currentPlan !== planName) {
+                userProfile.currentPlan = planName;
+                saveProfile(); // Save the new plan status to Firestore
+            }
+        };
+
+        const simulateAILook = async () => {
+            const prompt = document.getElementById('look-prompt').value;
+            const imageUrl = document.getElementById('look-image-url').value; // Usado apenas para contexto visual
+            const resultDiv = document.getElementById('ai-look-result');
+            const spinner = document.getElementById('look-spinner');
+
+            if (!prompt) {
+                showModal("Atenção", "Por favor, descreva a peça de roupa principal para a IA.");
+                return;
+            }
+
+            // Exibir o spinner
+            spinner.classList.remove('hidden');
+            resultDiv.innerHTML = `<div class="text-center p-10">
+                <div class="spinner border-4 border-gray-200 rounded-full w-8 h-8 inline-block"></div>
+                <p class="mt-2 text-gray-500 text-sm">A Aura está criando seu look...</p>
+            </div>`;
+
+            // Construir o System Prompt de Luxo para a IA
+            const systemPrompt = `Você é um estilista de luxo e consultor de beleza pessoal (designer de R$50.000,00). Sua missão é fornecer uma análise detalhada e dicas de estilo (roupa e cabelo) para o "Look do Dia" de uma cliente.
+            Use o seguinte perfil da cliente:
+            - Altura: ${userProfile.altura} cm
+            - Medidas: Busto ${userProfile.medidas.busto}cm, Cintura ${userProfile.medidas.cintura}cm, Quadril ${userProfile.medidas.quadril}cm
+            - Etnia: ${ETHNICITIES.find(e => e.value === userProfile.etnia)?.label || userProfile.etnia}
+            - Tipo de Cabelo: ${userProfile.cabelo}
+
+            A cliente descreveu a peça de roupa principal como: "${prompt}".
+
+            Gere a resposta em formato Markdown com estas seções:
+            1. Análise da Peça: Comente sobre a peça escolhida (ex: cor, corte, caimento).
+            2. Dicas de Complementos (Roupa e Acessórios): Sugira 3 a 5 peças ou acessórios que harmonizem com a peça principal, considerando a altura e as medidas para otimizar a silhueta.
+            3. Sugestão de Penteado: Sugira 1 a 2 penteados que complementem o look e que sejam adequados para o Tipo de Cabelo da cliente.
+            Mantenha um tom sofisticado, elegante e motivador.`;
+
+            // Query do Usuário (O que a cliente quer que a IA analise)
+            const userQuery = `Minha peça de roupa é: ${prompt}. Por favor, crie meu Look do Dia!`;
+            
+            // Simulação da Chamada à Gemini API (com Google Search para contexto de moda atual)
+            const apiKey = "" // O Canvas fornecerá esta chave.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                tools: [{ "google_search": {} }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`Erro HTTP: ${response.status}`);
+                }
+
+                const result = await response.json();
+                const aiText = result.candidates?.[0]?.content?.parts?.[0]?.text || "Desculpe, a IA não conseguiu gerar o look. Tente reformular o pedido.";
+                
+                // Formatar o resultado para exibição (usando um placeholder simples)
+                const formattedResult = aiText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Negrito
+                                              .replace(/\n\n/g, '<br><br>') // Parágrafos
+                                              .replace(/\n/g, '<br>'); // Quebras de linha simples
+
+                resultDiv.innerHTML = `<div class="p-4 bg-white rounded-lg shadow-md border-l-4 border-violet-500">${formattedResult}</div>`;
+                
+            } catch (error) {
+                console.error("Erro na chamada da IA (Look do Dia):", error);
+                resultDiv.innerHTML = `<div class="p-4 text-red-700 bg-red-100 border-l-4 border-red-500 rounded-lg">
+                    <p class="font-bold">Erro ao processar a IA:</p>
+                    <p class="text-sm">Não foi possível conectar ao serviço de estilismo. Verifique sua conexão. (Erro: ${error.message})</p>
+                </div>`;
+            } finally {
+                // Esconder o spinner
+                spinner.classList.add('hidden');
+            }
+
+        };
+
+        // --- Inicialização do App ---
+        
+        // CORREÇÃO: Torna funções globais para que os atributos onclick no HTML possam acessá-las
+        window.navigate = navigate;
+        window.closeModal = closeModal;
+        window.toggleMobileDrawer = toggleMobileDrawer;
+        window.simulatePayment = simulatePayment;
+        // Funções de login/cadastro
+        window.handleLogin = handleLogin;
+        window.signInAnon = signInAnon; 
+        window.handleSignup = handleSignup; // Adicionado a nova função de cadastro
+        window.showLogin = showLogin;
+        window.showSignup = showSignup;
+        
+        window.onload = initFirebase;
+        lucide.createIcons(); // Inicializa ícones na primeira carga
+    </script>
+</body>
+</html>
