@@ -63,78 +63,10 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- 🌟 TELA DE LOGIN/CADASTRO 🌟 -->
-    <div id="login-screen" class="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-        <div class="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl border-t-8 border-violet-700">
-            <div class="text-center mb-8">
-                <i data-lucide="gem" class="w-12 h-12 mx-auto text-violet-700 mb-3"></i>
-                <h1 class="luxury-header text-4xl font-bold text-violet-800">Aura & Essencia</h1>
-                <p class="text-gray-500 mt-2" id="auth-subtitle">Bem-vinda à sua jornada de beleza e bem-estar.</p>
-            </div>
-            
-            <!-- CONTÊINER DOS FORMULÁRIOS -->
-            <div id="auth-container">
-                <!-- FORMULÁRIO DE LOGIN (PADRÃO) -->
-                <form id="login-form-content" onsubmit="event.preventDefault(); handleLogin();">
-                    <div class="mb-5">
-                        <label for="login-email" class="block text-sm font-medium text-gray-700">E-mail</label>
-                        <input type="email" id="login-email" value="usuario@simulado.com" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Seu e-mail" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="login-password" class="block text-sm font-medium text-gray-700">Senha</label>
-                        <input type="password" id="login-password" value="123456" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Sua senha" required>
-                    </div>
-                    
-                    <button type="submit" id="login-btn" class="btn-primary text-white py-3 px-8 rounded-lg font-bold w-full flex items-center justify-center">
-                        <i data-lucide="log-in" class="w-5 h-5 mr-2" id="login-icon"></i>
-                        Entrar
-                    </button>
-                    
-                    <div class="mt-6 text-center">
-                        <button type="button" onclick="showSignup();" class="text-violet-600 hover:text-violet-800 font-medium transition duration-150 flex items-center justify-center mx-auto">
-                            <i data-lucide="user-plus" class="w-5 h-5 mr-2"></i>Criar uma Nova Conta
-                        </button>
-                    </div>
-                </form>
-                
-                <!-- FORMULÁRIO DE CADASTRO (ESCONDIDO) -->
-                <form id="signup-form-content" onsubmit="event.preventDefault(); handleSignup();" class="hidden">
-                    <h2 class="text-2xl font-semibold mb-4 text-violet-700">Novo Cadastro</h2>
-                    <div class="mb-5">
-                        <label for="signup-email" class="block text-sm font-medium text-gray-700">E-mail</label>
-                        <input type="email" id="signup-email" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Seu e-mail" required>
-                    </div>
-                    <div class="mb-6">
-                        <label for="signup-password" class="block text-sm font-medium text-gray-700">Senha (mínimo 6 caracteres)</label>
-                        <input type="password" id="signup-password" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-violet-500 focus:ring-violet-500 p-3" placeholder="Sua senha" required minlength="6">
-                    </div>
-                    
-                    <button type="submit" id="signup-btn" class="btn-primary text-white py-3 px-8 rounded-lg font-bold w-full flex items-center justify-center">
-                        <i data-lucide="save" class="w-5 h-5 mr-2" id="signup-icon"></i>
-                        Cadastrar e Entrar
-                    </button>
-                    
-                    <div class="mt-6 text-center">
-                        <button type="button" onclick="showLogin();" class="text-violet-600 hover:text-violet-800 font-medium transition duration-150 flex items-center justify-center mx-auto">
-                            <i data-lucide="arrow-left" class="w-5 h-5 mr-2"></i>Voltar ao Login
-                        </button>
-                    </div>
-                </form>
-            </div>
-            
-            <div class="mt-6 text-center border-t border-gray-200 pt-4">
-                <p class="text-gray-500 mb-3">Opção Rápida:</p>
-                <button onclick="signInAnon();" class="text-sm text-violet-600 hover:text-violet-800 font-medium flex items-center justify-center mx-auto transition duration-150">
-                    <i data-lucide="eye" class="w-5 h-5 mr-2"></i>Acesso Rápido (Anônimo)
-                </button>
-            </div>
-        </div>
-    </div>
-    <!-- 🛑 FIM DA TELA DE LOGIN/CADASTRO 🛑 -->
+    <!-- A TELA DE LOGIN FOI REMOVIDA. O APP INICIA DIRETAMENTE. -->
 
-
-    <!-- Navbar Fixa e Luxuosa (Escondida por default) -->
-    <nav class="bg-white shadow-lg p-4 sticky top-0 z-10 hidden" id="app-navbar">
+    <!-- Navbar Fixa e Luxuosa (AGORA VISÍVEL POR DEFAULT) -->
+    <nav class="bg-white shadow-lg p-4 sticky top-0 z-10" id="app-navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <h1 class="luxury-header text-2xl font-bold">Aura & Essencia</h1>
             <div id="nav-menu" class="hidden md:flex space-x-6">
@@ -169,8 +101,8 @@
     </div>
 
 
-    <!-- Conteúdo Principal - Centralizado e com Padding Generoso (Escondido por default) -->
-    <main class="flex-grow max-w-7xl mx-auto p-4 md:p-8 w-full hidden" id="app-main">
+    <!-- Conteúdo Principal - Centralizado e com Padding Generoso (AGORA VISÍVEL POR DEFAULT) -->
+    <main class="flex-grow max-w-7xl mx-auto p-4 md:p-8 w-full" id="app-main">
         <div id="content-container" class="bg-white p-6 md:p-10 rounded-xl shadow-2xl border-t-4 border-violet-700/50">
             <!-- Conteúdo será injetado aqui pelo JavaScript -->
         </div>
@@ -189,14 +121,13 @@
     <script type="module">
         // Importações do Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        // IMPORTANTE: Adicionado createUserWithEmailAndPassword
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        // CORRIGIDO: Adicionado signInWithCustomToken para resolver o ReferenceError
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, doc, setDoc, onSnapshot, collection, query, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
         // Global Variables MUST BE USED
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-aura-essencia-app-id';
-        // CORREÇÃO: Usando objeto vazio para garantir que o ambiente tente injetar as chaves válidas.
         const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {}; 
         const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
@@ -206,27 +137,12 @@
         // Configuração do Log do Firestore
         setLogLevel('Debug');
 
-        // --- Funções de Login/Cadastro de Tela ---
-        const showLogin = () => {
-            document.getElementById('signup-form-content').classList.add('hidden');
-            document.getElementById('login-form-content').classList.remove('hidden');
-            document.getElementById('auth-subtitle').textContent = "Bem-vinda à sua jornada de beleza e bem-estar.";
-            lucide.createIcons();
-        }
+        // --- Funções de Login/Cadastro de Tela (REMOVIDAS, MANTENDO APENAS LÓGICA DE INICIALIZAÇÃO) ---
 
-        const showSignup = () => {
-            document.getElementById('login-form-content').classList.add('hidden');
-            document.getElementById('signup-form-content').classList.remove('hidden');
-            document.getElementById('auth-subtitle').textContent = "Crie sua conta para salvar seu progresso.";
-            lucide.createIcons();
-        }
-
-
-        // Inicialização do Firebase e Autenticação
+        // Inicialização do Firebase e Autenticação (SIMPLIFICADA)
         const initFirebase = async () => {
             try {
                 // 1. Initialize App
-                // A inicialização sempre deve ocorrer
                 app = initializeApp(firebaseConfig);
                 db = getFirestore(app);
                 auth = getAuth(app);
@@ -236,31 +152,23 @@
                     if (user) {
                         userId = user.uid;
                         isAuthReady = true;
-                        // For demonstration, display the userId (important for multi-user rules)
-                        console.log("Usuário autenticado:", userId); 
-                        // Esconde o login, mostra o app e carrega o perfil
-                        showApp();
+                        console.log("Usuário autenticado (anônimo):", userId); 
+                        // Carrega o perfil e navega para a página inicial (perfil)
                         await loadUserProfile(); 
                         navigate('profile', false);
                     } else {
-                        // Se não houver usuário autenticado, exibe a tela de login
-                        document.getElementById('login-screen').classList.remove('hidden');
-                        document.getElementById('app-navbar').classList.add('hidden');
-                        document.getElementById('app-main').classList.add('hidden');
-                        isAuthReady = true; // Permite a interação com a tela de login
+                        // Se não houver usuário autenticado, força o login anônimo
+                        isAuthReady = true; // Permite o carregamento da tela
                         
-                        // NOVO FLUXO DE FALLBACK PARA GARANTIR O LOGIN ANÔNIMO:
                         if (initialAuthToken) {
                             try {
-                                // Tenta login com token (prioridade)
                                 await signInWithCustomToken(auth, initialAuthToken);
                             } catch (error) {
                                 console.error("Erro durante o login com token, tentando anônimo:", error);
-                                // Se o token falhar, tenta o anônimo como último recurso
                                 await signInAnonymously(auth); 
                             }
                         } else {
-                            // Se não houver token, tenta imediatamente o login anônimo
+                            // Tenta imediatamente o login anônimo
                             await signInAnonymously(auth);
                         }
                     }
@@ -272,110 +180,7 @@
             }
         };
 
-        const showApp = () => {
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('app-navbar').classList.remove('hidden');
-            document.getElementById('app-main').classList.remove('hidden');
-            lucide.createIcons(); // Garante que os ícones do app sejam renderizados
-        }
-
-        // --- Funções de Login/Cadastro (Firebase) ---
-
-        // FUNÇÃO DE CADASTRO (NOVA)
-        const handleSignup = async () => {
-            const email = document.getElementById('signup-email').value;
-            const password = document.getElementById('signup-password').value;
-            const signupBtn = document.getElementById('signup-btn');
-            const signupIcon = document.getElementById('signup-icon');
-
-            if (password.length < 6) {
-                showModal("Erro de Cadastro", "A senha deve ter no mínimo 6 caracteres.");
-                return;
-            }
-
-            // Inicia o spinner
-            signupIcon.classList.remove('data-lucide');
-            signupIcon.classList.add('spinner', 'border-4', 'border-gray-200', 'rounded-full');
-            signupBtn.disabled = true;
-
-            try {
-                // Tenta criar a nova conta no Firebase
-                await createUserWithEmailAndPassword(auth, email, password);
-                
-                // Se for bem-sucedido, o onAuthStateChanged fará o login e a navegação.
-                showModal("Sucesso!", "Conta criada com sucesso! Você está logado(a).");
-
-            } catch (error) {
-                // Resetar o botão e ícone
-                signupIcon.classList.add('data-lucide');
-                signupIcon.classList.remove('spinner', 'border-4', 'border-gray-200', 'rounded-full');
-                signupIcon.setAttribute('data-lucide', 'save');
-                lucide.createIcons(); 
-                signupBtn.disabled = false;
-                
-                let errorMessage = "Ocorreu um erro desconhecido durante o cadastro.";
-                
-                switch (error.code) {
-                    case 'auth/email-already-in-use':
-                        errorMessage = "Este e-mail já está em uso. Tente fazer login.";
-                        break;
-                    case 'auth/invalid-email':
-                        errorMessage = "O endereço de e-mail não é válido.";
-                        break;
-                    case 'auth/weak-password':
-                        errorMessage = "A senha é muito fraca. Escolha uma senha mais forte.";
-                        break;
-                    case 'auth/api-key-not-valid': // Erro mais específico da configuração (mantido por segurança)
-                        errorMessage = "Erro de Configuração. A chave de API do Firebase não é válida. (Tente novamente ou use o Acesso Rápido.)";
-                        break;
-                    default:
-                        errorMessage = `Erro de Cadastro: ${error.message}`;
-                }
-                showModal("Erro de Cadastro", errorMessage);
-            }
-        };
-
-        const handleLogin = async () => {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const loginBtn = document.getElementById('login-btn');
-            const loginIcon = document.getElementById('login-icon');
-
-            // Muda o ícone para spinner
-            loginIcon.classList.remove('data-lucide');
-            loginIcon.classList.add('spinner', 'border-4', 'border-gray-200', 'rounded-full');
-            loginBtn.disabled = true;
-
-            try {
-                // Tenta logar o usuário com e-mail e senha
-                await signInWithEmailAndPassword(auth, email, password);
-                // O listener onAuthStateChanged cuidará da navegação
-            } catch (error) {
-                // Resetar o botão imediatamente em caso de falha de autenticação
-                loginIcon.classList.add('data-lucide');
-                loginIcon.classList.remove('spinner', 'border-4', 'border-gray-200', 'rounded-full');
-                loginIcon.setAttribute('data-lucide', 'log-in');
-                lucide.createIcons(); // Para redesenhar o ícone de login
-                loginBtn.disabled = false;
-                
-                if (error.code === 'auth/invalid-credential' || error.code === 'auth/wrong-password' || error.code === 'auth/user-not-found') {
-                    showModal("Login Falhou", "E-mail ou senha inválidos. Verifique suas credenciais.");
-                } else {
-                     showModal("Erro de Login", `Ocorreu um erro: ${error.message}`);
-                }
-            } 
-        };
-
-        const signInAnon = async () => {
-             try {
-                await signInAnonymously(auth);
-                // O listener onAuthStateChanged cuidará da navegação
-            } catch (error) {
-                console.error("Erro no login anônimo:", error);
-                // Se houver erro aqui, provavelmente é a chave de API novamente.
-                showModal("Erro de Conexão", `Não foi possível realizar o acesso rápido. Tente novamente mais tarde. Erro: ${error.message}`);
-            }
-        };
+        // NOTA: As funções showLogin, showSignup, handleLogin, handleSignup, signInAnon foram removidas.
 
         
         // --- Variáveis de Estado do App ---
@@ -1037,12 +842,6 @@
         window.closeModal = closeModal;
         window.toggleMobileDrawer = toggleMobileDrawer;
         window.simulatePayment = simulatePayment;
-        // Funções de login/cadastro
-        window.handleLogin = handleLogin;
-        window.signInAnon = signInAnon; 
-        window.handleSignup = handleSignup; // Adicionado a nova função de cadastro
-        window.showLogin = showLogin;
-        window.showSignup = showSignup;
         
         window.onload = initFirebase;
         lucide.createIcons(); // Inicializa ícones na primeira carga
